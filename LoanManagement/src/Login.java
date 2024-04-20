@@ -6,8 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Locale;
 
-public class Login extends loginform implements ActionListener{
+public class Login extends loginform{
 	private TextFieldCustom usernameField;
     private PasswordFieldCustom passwordField;
 	public Login(){
@@ -31,7 +32,7 @@ public class Login extends loginform implements ActionListener{
 	        add(NumberMail);
 	        
 	        // Phone Number/Email Account field
-	        TextFieldCustom usernameField = new TextFieldCustom("",14);
+	        JTextField usernameField = new JTextField();
 	        usernameField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 	        usernameField.setBackground(Color.WHITE);
 	        usernameField.setForeground(Color.BLACK);
@@ -46,7 +47,7 @@ public class Login extends loginform implements ActionListener{
 	        password.setHorizontalAlignment(SwingConstants.CENTER);
 	        add(password);
 	        
-	        PasswordFieldCustom passwordField = new PasswordFieldCustom("", 14);
+	        JPasswordField passwordField = new JPasswordField();
 	        passwordField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 	        passwordField.setForeground(Color.WHITE);
 	        passwordField.setForeground(Color.BLACK);
@@ -61,7 +62,58 @@ public class Login extends loginform implements ActionListener{
 	        loginButton.setBackground(CommonConstants.BUTTON_COLOR);
 	        loginButton.setForeground(Color.WHITE);
 	        loginButton.setBounds(417, 320,350, 30);
-	        loginButton.addActionListener(this);
+	      //  loginButton.addActionListener(this);
+			loginButton.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					String username = usernameField.getText();
+						String password = new String(passwordField.getPassword());
+	
+	
+					/*String command = e.getActionCommand();
+					if(command.equalsIgnoreCase("Login")){
+						// create dialog box
+						JDialog resultDialog = new JDialog();
+						resultDialog.setPreferredSize(CommonConstants.RESULT_DIALOG_SIZE);
+						resultDialog.pack();
+						//resultDialog.setTitle(loginButton);
+						resultDialog.setModal(true);
+						resultDialog.getContentPane().setBackground(CommonConstants.PRIMARY_COLOR);
+	
+						// create label (display result)
+						JLabel resultLabel = new JLabel();
+						resultLabel.setForeground(CommonConstants.SECONDARY_COLOR);
+						resultLabel.setFont(new Font("Segoe UI", Font.PLAIN, 26));
+						resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+						resultDialog.add(resultLabel);
+						
+						resultDialog.setVisible(true);
+						*/
+						// validate 
+						if(UserDB.addUser1(username, password)){
+							// checks password
+						   // String validPass = UserDB.userDB.get(username);
+						  //  if(password.equals(validPass)){
+								// display a success dialog
+								//resultLabel.setText("Login Successful!");
+								JOptionPane.showMessageDialog(Login.this,"success");
+	
+							}else{
+								// display an incorrect password dialog
+								//resultLabel.setText("Invalid Password");
+								//return resultDialog;
+							   JOptionPane.showMessageDialog(Login.this,"invalid");
+							}
+							//add(resultDialog);
+							//add(resultLabel);
+						}//else{
+							// display an incorrect username dialog
+						   // resultLabel.setText("Invalid Username");
+						//	JOptionPane.showMessageDialog(Login.this, "success")
+						
+				//}
+						});
+					
 	        add(loginButton);
 	        // register Label
 	        JLabel registerLabel = new JLabel("I don't have an account");
@@ -76,7 +128,7 @@ public class Login extends loginform implements ActionListener{
 	        signUp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	        signUp.setForeground(new Color(57,155,83));
 	        signUp.setBounds(580, 390,80, 30);
-	        signUp.addActionListener(this);
+	        
 	        add(signUp);
 	        
 	        signUp.addMouseListener(new MouseAdapter() {
@@ -108,47 +160,10 @@ public class Login extends loginform implements ActionListener{
 	        RIGHT.setHorizontalAlignment(SwingConstants.RIGHT);
 	        add(RIGHT);
 	    }
-
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            String command = e.getActionCommand();
-	            if(command.equalsIgnoreCase("Login")){
-	                // create dialog box
-	                JDialog resultDialog = new JDialog();
-	                resultDialog.setPreferredSize(CommonConstants.RESULT_DIALOG_SIZE);
-	                resultDialog.pack();
-	                resultDialog.setLocationRelativeTo(this);
-	                resultDialog.setModal(true);
-	                resultDialog.getContentPane().setBackground(CommonConstants.PRIMARY_COLOR);
-
-	                // create label (display result)
-	                JLabel resultLabel = new JLabel();
-	                resultLabel.setForeground(CommonConstants.SECONDARY_COLOR);
-	                resultLabel.setFont(new Font("Segoe UI", Font.PLAIN, 26));
-	                resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
-	                resultDialog.add(resultLabel);
-	                
-	                String username = usernameField.getText();
-	                String password = passwordField.getText();
-
-
-	                // validate 
-	                if(UserDB.userDB.get(username) != null){
-	                    // checks password
-	                    String validPass = UserDB.userDB.get(username);
-	                    if(password.equals(validPass)){
-	                        // display a success dialog
-	                        resultLabel.setText("Login Successful!");
-	                    }else{
-	                        // display an incorrect password dialog
-	                        resultLabel.setText("Invalid Password");
-	                    }
-	                }else{
-	                    // display an incorrect username dialog
-	                    resultLabel.setText("Invalid Username");
-	                }
-	                resultDialog.setVisible(true);
-	            }
-	        }
+		
+				}
+	            	 
+	           //}
+	        //}
 	        
-}
+//}
